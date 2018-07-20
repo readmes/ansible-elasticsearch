@@ -1,18 +1,18 @@
-# Ansible Playbook for Elasticsearch
+# Ansible Playbook for Elasticsearch ![how](https://cs.adelaide.edu.au/~christoph/badges/content-how-green.svg)
 This is an [Ansible](http://www.ansibleworks.com/) playbook for [Elasticsearch](http://www.elasticsearch.org/). You can use it by itself or as part of a larger playbook customized for your local environment.
 
-## Features
+## Features ![what-why](https://cs.adelaide.edu.au/~christoph/badges/content-what-why-brightgreen.svg)
 - Support for installing plugins
 - Support for installing and configuring EC2 plugin
 - Support for installing custom JARs in the Elasticsearch classpath (e.g. custom Lucene Similarity JAR)
 - Support for installing the [Sematext SPM](http://www.sematext.com/spm/) monitor
 - Support for installing the [Marvel](http://www.elasticsearch.org/guide/en/marvel/current/) plugin
 
-## Testing locally with Vagrant
+## Testing locally with Vagrant ![how](https://cs.adelaide.edu.au/~christoph/badges/content-how-green.svg)
 A sample [Vagrant](http://www.vagrantup.com/) configuration is provided to help with local testing. After installing Vagrant, run `vagrant up` at the root of the project to get an VM instance bootstrapped and configured with a running instance of Elasticsearch. Look at `vars/vagrant.yml` and `defaults/main.yml` for the variables that will be substituted in `templates/elasticsearch.yml.j2`.
 
-## Running Standalone Playbook
-### Copy Example Files
+## Running Standalone Playbook ![how](https://cs.adelaide.edu.au/~christoph/badges/content-how-green.svg)
+### Copy Example Files ![how](https://cs.adelaide.edu.au/~christoph/badges/content-how-green.svg)
 Make copies of the following files and rename them to suit your environment. E.g.:
 
 - vagrant-main.yml => my-playbook-main.yml
@@ -21,7 +21,7 @@ Make copies of the following files and rename them to suit your environment. E.g
 
 Edit the copied files to suit your environment and needs. See examples below.
 
-### Edit your my-inventory.ini
+### Edit your my-inventory.ini ![how](https://cs.adelaide.edu.au/~christoph/badges/content-how-green.svg)
 Edit your my-inventory.ini and customize your cluster and node names:
 
 ```
@@ -54,10 +54,10 @@ elasticsearch_plugin_aws_ec2_groups=MyElasticSearchGroup
 spm_client_token=<your SPM token here>
 ```
 
-### Edit your vars/my-vars.yml
+### Edit your vars/my-vars.yml ![how](https://cs.adelaide.edu.au/~christoph/badges/content-how-green.svg)
 See `vars/sample.yml` and `vars/vagrant.yml` for exmaple variable files. These are the files where you specify Elasticsearch settings and apply certain features such as plugins, custom JARs or monitoring. The best way to enable configurations is to look at `templates/elasticsearch.yml.j2` and see which variables you want to defile in your `vars/my-vars.yml`. See below for configurations regarding EC2, plugins and custom JARs.
 
-### Edit your my-playbook-main.yml
+### Edit your my-playbook-main.yml ![how](https://cs.adelaide.edu.au/~christoph/badges/content-how-green.svg)
 Example `my-playbook-main.yml`:
 
 ```
@@ -79,13 +79,13 @@ Example `my-playbook-main.yml`:
     - include: tasks/main.yml
 ```
 
-### Launch
+### Launch ![how](https://cs.adelaide.edu.au/~christoph/badges/content-how-green.svg)
 ```
 $  ansible-playbook my-playbook-main.yml -i my-inventory.ini -e user=<your sudo user for the elasticsearch installation>
 ```
 
-## Enabling Added Features
-### Configuring EC2
+## Enabling Added Features ![what-why](https://cs.adelaide.edu.au/~christoph/badges/content-what-why-brightgreen.svg)
+### Configuring EC2 ![how](https://cs.adelaide.edu.au/~christoph/badges/content-how-green.svg)
 The following variables need to be defined in your playbook or inventory:
 
 - elasticsearch_plugin_aws_version
@@ -99,7 +99,7 @@ The following variables provide a for now limited configuration for the plugin. 
 - elasticsearch_plugin_aws_access_key
 - elasticsearch_plugin_aws_secret_key
 
-### Installing plugins
+### Installing plugins ![how](https://cs.adelaide.edu.au/~christoph/badges/content-how-green.svg)
 You will need to define an array called `elasticsearch_plugins` in your playbook or inventory, such that:
 ```
 elasticsearch_plugins:
@@ -131,7 +131,7 @@ elasticsearch_plugins:
  - { name: 'facet-script', url: 'http://dl.bintray.com/content/imotov/elasticsearch-plugins/elasticsearch-facet-script-1.1.2.zip' }
 ```
 
-### Installing Custom JARs
+### Installing Custom JARs ![how](https://cs.adelaide.edu.au/~christoph/badges/content-how-green.svg)
 Custom jars are made available to the Elasticsearch classpath by being downloaded into the elasticsearch_home_dir/lib folder. An example of a custom jar can include a custom Lucene Similarity Provider. You will need to define an array called `elasticsearch_custom_jars` in your playbook or inventory, such that:
 
 ```
@@ -140,7 +140,7 @@ elasticsearch_custom_jars:
  - ...
 ```
 
-### Configuring Thread Pools
+### Configuring Thread Pools ![how](https://cs.adelaide.edu.au/~christoph/badges/content-how-green.svg)
 Elasticsearch [thread pools](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/modules-threadpool.html) can be configured using the `elasticsearch_thread_pools` list variable:
 
 ```
@@ -150,7 +150,7 @@ elasticsearch_thread_pools:
   - "threadpool.bulk.queue_size: 1000"
 ```
 
-### Enabling Sematext SPM
+### Enabling Sematext SPM ![how](https://cs.adelaide.edu.au/~christoph/badges/content-how-green.svg)
 Enable the SPM task in your playbook:
 
 ```
@@ -161,7 +161,7 @@ tasks:
 
 Set the spm_client_token variable in your inventory.ini to your SPM key.
 
-### Configuring Marvel
+### Configuring Marvel ![how](https://cs.adelaide.edu.au/~christoph/badges/content-how-green.svg)
 
 The following variables need to be defined in your playbook or inventory:
 
@@ -175,7 +175,7 @@ The following variables provide configuration for the plugin. More options may b
 - elasticsearch_plugin_marvel_agent_interval
 - elasticsearch_plugin_marvel_agent_exporter_es_index_timeformat
 
-## Disable Java installation
+## Disable Java installation ![how](https://cs.adelaide.edu.au/~christoph/badges/content-how-green.svg)
 
 If you prefer to skip the built-in installation of the Oracle JRE, use the `elasticsearch_install_java` flag:
 
@@ -203,7 +203,7 @@ $  git submodule update --init
 $  git commit ./submodule -m "Added submodule as ./subm"
 ```
 
-### Include this playbook as a role in your master playbook
+### Include this playbook as a role in your master playbook ![how](https://cs.adelaide.edu.au/~christoph/badges/content-how-green.svg)
 Example `my-master-playbook-main.yml`:
 
 ```
@@ -224,15 +224,15 @@ Example `my-master-playbook-main.yml`:
     - vars/my-vars.yml
 ```
 
-# Issues, requests, contributions
+# Issues, requests, contributions ![contribution](https://cs.adelaide.edu.au/~christoph/badges/content-contribution-blue.svg)
 This software is provided as is. Having said that, if you see an issue, feel free to log a ticket. We'll do our best to address it. Same if you want to see a certain feature supported in the fututre. No guarantees are made that any requested feature will be implemented. If you'd like to contribute, feel free to clone and submit a pull request.
 
-# Dependencies
+# Dependencies ![how](https://cs.adelaide.edu.au/~christoph/badges/content-how-green.svg)
 None
 
-# License
+# License ![who](https://cs.adelaide.edu.au/~christoph/badges/content-who-yellow.svg)
 MIT
 
-# Author Information
+# Author Information ![who](https://cs.adelaide.edu.au/~christoph/badges/content-who-yellow.svg)
 
 George Stathis - gstathis [at] traackr.com
